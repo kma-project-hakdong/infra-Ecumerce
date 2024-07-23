@@ -4,8 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 echo 'building the application...'
-                git branch: 'main'
-                url: 'https://github.com/kma-project-hakdong/web-Ecumerce/'
+                git branch: 'main', url: 'https://github.com/kma-project-hakdong/web-Ecumerce/'
             }
         }
         stage('test') {
