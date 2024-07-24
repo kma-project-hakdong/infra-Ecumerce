@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo 'Building and deploying the application...'
                 script {
-                    docker.withRegistry(env.ECR_REGISTRY, 'ecr-admin') {
+                    docker.withRegistry(${env.ECR_REGISTRY}, 'ecr-admin') {
 
                         def myapp = docker.build("${env.ECR_REGISTRY}/kma-web:${env.BUILD_ID}")
                         myapp.push()
