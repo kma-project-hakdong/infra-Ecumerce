@@ -16,16 +16,6 @@ pipeline {
         stage('Docker build and Push') {
             steps {
                 echo 'deploying the application...'
-                echo pwd
-                script {
-                    // 플러그인을 사용해서 하도록 하자 보안적인 부분을 처리해준다.
-                    // sh '''
-                    //     aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${ECR_REGISTRY}
-                    //     docker build -t kma-web .
-                    //     docker tag kma-web:latest ${ECR_REGISTRY}/kma-web:latest
-                    //     docker push ${ECR_REGISTRY}/kma-web:latest
-                    // '''
-                }
             }
         }
     }
