@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo 'Building and deploying the application...'
                 script {
-                    docker.withRegistry('851725431361.dkr.ecr.ap-northeast-2.amazonaws.com', 'ecr-admin') {
+                    docker.withRegistry('https://851725431361.dkr.ecr.ap-northeast-2.amazonaws.com', 'ecr-admin') {
 
                         def myapp = docker.build("851725431361.dkr.ecr.ap-northeast-2.amazonaws.com/kma-web:${env.BUILD_ID}")
                         myapp.push()
