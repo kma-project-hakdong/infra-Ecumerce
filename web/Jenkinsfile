@@ -1,21 +1,34 @@
 pipeline {
     agent any
+
     stages {
-        stage('build') {
+        stage('Checkout') {
             steps {
-                echo 'building the application...'
+                echo 'Checking out the application...'
                 git branch: 'main', url: 'https://github.com/kma-project-hakdong/web-Ecumerce/'
-                echo "Running id : ${env.BUILD_ID} on ${env.JENKINS_URL}, BUILD_NUMBER : ${env.BUILD_NUMBER}"
             }
         }
-        stage('test') {
+
+        stage('Docker Build and Push') {
             steps {
-                echo 'testing the application...'
+                echo 'Building and deploying the application...'
+                docker.withRegistry(env.ECR_REGISTRY, 'ecr-admin') {
+                    def myapp = docker.build("${env.ECR_REGISTRY}/kma-web:${env.BUILD_ID}")
+                    myapp.push()
+                    myapp.push('latest')
+                }
             }
         }
-        stage('Docker build and Push') {
+
+        stage('Test') {
             steps {
-                echo 'deploying the application...'
+                echo 'Testing the application...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
             }
         }
     }
